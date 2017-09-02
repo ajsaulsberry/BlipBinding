@@ -1,14 +1,22 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using Blip.Entities.Geographies;
+using Blip.Entities.Orders;
 
-namespace Blip.Entities.Customer
+namespace Blip.Entities.Customers
 {
     public class Customer
     {
+        public Customer()
+        {
+            Orders = new HashSet<Order>();
+        }
+
         [Key]
-        [Column(Order = 1)]
+        [Column(Order = 0)]
+        [DatabaseGenerated(DatabaseGeneratedOption.None)]
         public Guid CustomerID { get; set; }
 
         [Required]
@@ -25,5 +33,7 @@ namespace Blip.Entities.Customer
         public virtual Country Country { get; set; }
 
         public virtual Region Region { get; set; }
+
+        public virtual ICollection<Order> Orders { get; set; }
     }
 }
