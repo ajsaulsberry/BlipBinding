@@ -46,34 +46,16 @@ namespace Blip.Data.Migrations
                 .Index(t => t.ItemID)
                 .Index(t => t.OrderID);
             
-            CreateTable(
-                "dbo.ItemOrders",
-                c => new
-                    {
-                        Item_ItemID = c.Guid(nullable: false),
-                        Order_OrderID = c.Guid(nullable: false),
-                    })
-                .PrimaryKey(t => new { t.Item_ItemID, t.Order_OrderID })
-                .ForeignKey("dbo.Items", t => t.Item_ItemID, cascadeDelete: true)
-                .ForeignKey("dbo.Orders", t => t.Order_OrderID, cascadeDelete: true)
-                .Index(t => t.Item_ItemID)
-                .Index(t => t.Order_OrderID);
-            
         }
         
         public override void Down()
         {
             DropForeignKey("dbo.OrderItems", "OrderID", "dbo.Orders");
             DropForeignKey("dbo.OrderItems", "ItemID", "dbo.Items");
-            DropForeignKey("dbo.ItemOrders", "Order_OrderID", "dbo.Orders");
-            DropForeignKey("dbo.ItemOrders", "Item_ItemID", "dbo.Items");
             DropForeignKey("dbo.Orders", "CustomerID", "dbo.Customers");
-            DropIndex("dbo.ItemOrders", new[] { "Order_OrderID" });
-            DropIndex("dbo.ItemOrders", new[] { "Item_ItemID" });
             DropIndex("dbo.OrderItems", new[] { "OrderID" });
             DropIndex("dbo.OrderItems", new[] { "ItemID" });
             DropIndex("dbo.Orders", new[] { "CustomerID" });
-            DropTable("dbo.ItemOrders");
             DropTable("dbo.OrderItems");
             DropTable("dbo.Items");
             DropTable("dbo.Orders");
