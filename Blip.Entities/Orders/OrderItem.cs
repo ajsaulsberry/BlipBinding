@@ -5,7 +5,7 @@ using Blip.Entities.Items;
 
 namespace Blip.Entities.Orders
 {
-    public class OrderItems
+    public class OrderItem
     {
         [Key]
         [Column(Order = 0)]

@@ -107,7 +107,7 @@
     <Compile Include="Geographies\Region.cs" />
     <Compile Include="Items\Item.cs" />
     <Compile Include="Orders\Order.cs" />
-    <Compile Include="Orders\OrderItems.cs" />
+    <Compile Include="Orders\OrderItem.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup />
