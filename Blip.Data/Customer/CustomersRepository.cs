@@ -9,6 +9,21 @@ namespace Blip.Data
 {
     public class CustomersRepository
     {
+        public Customer GetCustomer(Guid customerid)
+        {
+            if (customerid != Guid.Empty)
+            { 
+                using (var context = new ApplicationDbContext())
+                {
+                    var customer = context.Customers.AsNoTracking()
+                        .Where(x => x.CustomerID == customerid)
+                        .Single();
+                    return customer;
+                }
+            }
+            return null;
+        }
+
         public List<CustomerDisplayViewModel> GetCustomers()
         {
             using (var context = new ApplicationDbContext())

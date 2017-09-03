@@ -106,6 +106,8 @@
     <Compile Include="Geographies\Country.cs" />
     <Compile Include="Geographies\Region.cs" />
     <Compile Include="Items\Item.cs" />
+    <Compile Include="Orders.ViewModels\CustomerOrdersListViewModel.cs" />
+    <Compile Include="Orders.ViewModels\OrderDisplayViewModel.cs" />
     <Compile Include="Orders\Order.cs" />
     <Compile Include="Orders\OrderItem.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
