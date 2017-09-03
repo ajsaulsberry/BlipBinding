@@ -5,16 +5,19 @@ namespace Blip.Data.Migrations
     using System.Data.Entity;
     using System.Data.Entity.Migrations;
     using System.Linq;
+    using Blip.Entities.Customers;
     using Blip.Entities.Geographies;
+    using Blip.Entities.Items;
+    using Blip.Entities.Orders;
 
-    internal sealed class Configuration : DbMigrationsConfiguration<Blip.Data.ApplicationDbContext>
+    internal sealed class Configuration : DbMigrationsConfiguration<ApplicationDbContext>
     {
         public Configuration()
         {
             AutomaticMigrationsEnabled = false;
         }
 
-        protected override void Seed(Blip.Data.ApplicationDbContext context)
+        protected override void Seed(ApplicationDbContext context)
         {
             //  This method will be called after migrating to the latest version.
 
@@ -471,6 +474,163 @@ namespace Blip.Data.Migrations
                 }
             };
             regions.ForEach(s => context.Regions.AddOrUpdate(p => p.RegionCode, s));
+            context.SaveChanges();
+
+            var customers = new List<Customer>
+            {
+                new Customer
+                {
+                    CustomerID = Guid.NewGuid(),
+                    CustomerName = "Cogswell Cogs",
+                    CountryIso3 = "USA",
+                    RegionCode = "CA"
+                },
+                new Customer
+                {
+                    CustomerID = Guid.NewGuid(),
+                    CustomerName = "Spacely Space Sprockets",
+                    CountryIso3 = "USA",
+                    RegionCode = "TX"
+                },
+                new Customer
+                {
+                    CustomerID = Guid.NewGuid(),
+                    CustomerName = "Amagamated Flange",
+                    CountryIso3 = "CAN",
+                    RegionCode = "QC"
+                }
+            };
+            customers.ForEach(s => context.Customers.AddOrUpdate(p => p.CustomerID, s));
+            context.SaveChanges();
+
+            var items = new List<Item>
+            {
+                new Item
+                {
+                    ItemID = Guid.NewGuid(),
+                    Description = "Laser Drill Press",
+                    ReorderQuantity = 4,
+                    MSRP = 1103.99M
+                },
+                new Item
+                {
+                    ItemID = Guid.NewGuid(),
+                    Description = "Quantum Impeller",
+                    ReorderQuantity = 12,
+                    MSRP = 3.13M
+                },
+                new Item
+                {
+                    ItemID = Guid.NewGuid(),
+                    Description = "Flux Capacitor",
+                    ReorderQuantity = 10,
+                    MSRP = 6.17M
+                },
+                new Item
+                {
+                    ItemID = Guid.NewGuid(),
+                    Description = "Dilithium Crystal",
+                    ReorderQuantity = 1000,
+                    MSRP = 42
+                },
+                new Item
+                {
+                    ItemID = Guid.NewGuid(),
+                    Description = "Aluminum Tube",
+                    ReorderQuantity = 100,
+                    MSRP = 2.12M
+                }
+            };
+            items.ForEach(s => context.Items.AddOrUpdate(p => p.ItemID, s));
+            context.SaveChanges();
+
+            var orders = new List<Order>
+            {
+                new Order
+                {
+                    OrderID = Guid.NewGuid(),
+                    CustomerID = context.Customers.Where(x => x.CustomerName == "Cogswell Cogs").Single().CustomerID,
+                    OrderDate = DateTime.Parse("2017-07-14"),
+                    Description = "PO CC-17-042"
+                },
+                new Order
+                {
+                    OrderID = Guid.NewGuid(),
+                    CustomerID = context.Customers.Where(x => x.CustomerName == "Cogswell Cogs").Single().CustomerID,
+                    OrderDate = DateTime.Parse("2017-07-30"),
+                    Description = "PO CC-17-091"
+                },
+                new Order
+                {
+                    OrderID = Guid.NewGuid(),
+                    CustomerID = context.Customers.Where(x => x.CustomerName == "Spacely Space Sprockets").Single().CustomerID,
+                    OrderDate = DateTime.Parse("2017-08-03"),
+                    Description = "Spacely 2017-00110001"
+                }
+            };
+            orders.ForEach(s => context.Orders.AddOrUpdate(p => p.OrderID, s));
+            context.SaveChanges();
+
+            var orderitems = new List<OrderItem>
+            {
+                new OrderItem
+                {
+                    OrderID = context.Orders.Where(x => x.Description == "PO CC-17-042").Single().OrderID,
+                    ItemID = context.Items.Where(x => x.Description == "Laser Drill Press").Single().ItemID,
+                    Price = context.Items.Where(x => x.Description == "Laser Drill Press").Single().MSRP,
+                    Quantity = 3
+                },
+                new OrderItem
+                {
+                    OrderID = context.Orders.Where(x => x.Description == "PO CC-17-042").Single().OrderID,
+                    ItemID = context.Items.Where(x => x.Description == "Aluminum Tube").Single().ItemID,
+                    Price = context.Items.Where(x => x.Description == "Aluminum Tube").Single().MSRP,
+                    Quantity = 21
+                },
+                new OrderItem
+                {
+                    OrderID = context.Orders.Where(x => x.Description == "PO CC-17-091").Single().OrderID,
+                    ItemID = context.Items.Where(x => x.Description == "Aluminum Tube").Single().ItemID,
+                    Price = context.Items.Where(x => x.Description == "Aluminum Tube").Single().MSRP,
+                    Quantity = 4
+                },
+                new OrderItem
+                {
+                    OrderID = context.Orders.Where(x => x.Description == "PO CC-17-091").Single().OrderID,
+                    ItemID = context.Items.Where(x => x.Description == "Flux Capacitor").Single().ItemID,
+                    Price = context.Items.Where(x => x.Description == "Flux Capacitor").Single().MSRP,
+                    Quantity = 21
+                },
+                new OrderItem
+                {
+                    OrderID = context.Orders.Where(x => x.Description == "PO CC-17-091").Single().OrderID,
+                    ItemID = context.Items.Where(x => x.Description == "Quantum Impeller").Single().ItemID,
+                    Price = context.Items.Where(x => x.Description == "Quantum Impeller").Single().MSRP,
+                    Quantity = 1
+                },
+                new OrderItem
+                {
+                    OrderID = context.Orders.Where(x => x.Description == "Spacely 2017-00110001").Single().OrderID,
+                    ItemID = context.Items.Where(x => x.Description == "Quantum Impeller").Single().ItemID,
+                    Price = context.Items.Where(x => x.Description == "Quantum Impeller").Single().MSRP,
+                    Quantity = 1
+                },
+                new OrderItem
+                {
+                    OrderID = context.Orders.Where(x => x.Description == "Spacely 2017-00110001").Single().OrderID,
+                    ItemID = context.Items.Where(x => x.Description == "Flux Capacitor").Single().ItemID,
+                    Price = context.Items.Where(x => x.Description == "Flux Capacitor").Single().MSRP,
+                    Quantity = 1
+                },
+                new OrderItem
+                {
+                    OrderID = context.Orders.Where(x => x.Description == "Spacely 2017-00110001").Single().OrderID,
+                    ItemID = context.Items.Where(x => x.Description == "Dilithium Crystal").Single().ItemID,
+                    Price = context.Items.Where(x => x.Description == "Dilithium Crystal").Single().MSRP,
+                    Quantity = 100
+                }
+            };
+            orderitems.ForEach(s => context.OrderItems.AddOrUpdate(p => new { p.OrderID, p.ItemID }, s));
             context.SaveChanges();
         }
     }
