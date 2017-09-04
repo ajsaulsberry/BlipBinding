@@ -43,5 +43,24 @@ namespace Blip.Data.Orders
             }
             return null;
         }
+
+        public void SaveOrders(List<OrderDisplayViewModel> orders)
+        {
+            if (orders != null)
+            {
+                using (var context = new ApplicationDbContext())
+                {
+                    foreach (var order in orders)
+                    {
+                        var record = context.Orders.Find(order.OrderID);
+                        if (record != null)
+                        {
+                            record.Description = order.Description;
+                        }
+                    }
+                    context.SaveChanges();
+                }
+            }
+        }
     }
 }

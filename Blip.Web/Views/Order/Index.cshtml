@@ -67,14 +67,19 @@
                             </tr>
                         }
                     }
-                    <tr>
+                    @*<tr>
                         <td>
                             @Html.ActionLink("Add", "Edit", new { id = Model.CustomerID }, htmlAttributes: new { @class = "btn btn-success" })
                         </td>
                         <td></td>
                         <td></td>
-                    </tr>
+                    </tr>*@
                 </table>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Save" class="btn btn-primary" />
             </div>
         </div>
     </div>

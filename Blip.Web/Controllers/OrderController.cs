@@ -25,5 +25,21 @@ namespace BlipProjects.Controllers
             }
             return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
         }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Index(CustomerOrdersListViewModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                if (model.Orders != null)
+                {
+                    var repo = new OrdersRepository();
+                    repo.SaveOrders(model.Orders);
+                }
+                return View(model);
+            }
+            return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+        }
     }
 }
