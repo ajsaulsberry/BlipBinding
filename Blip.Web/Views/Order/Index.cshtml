@@ -66,10 +66,10 @@
                                 </td>
                             </tr>
                         }
-                                    }
+                    }
                     @*<tr>
                         <td>
-                            @Html.ActionLink("Add", "Edit", new { id = Model.CustomerID }, htmlAttributes: new { @class = "btn btn-success" })
+                            @Html.ActionLink("Add", "Edit", new { customerid = Model.CustomerID, orderid = Model.OrderID }, htmlAttributes: new { @class = "btn btn-success" })
                         </td>
                         <td></td>
                         <td></td>
