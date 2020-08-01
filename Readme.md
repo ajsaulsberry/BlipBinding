@@ -4,7 +4,7 @@
 
 ## PluralSight Guides
 
-[ASP.NET MVC - Getting default data binding right for hierarchical views](https://www.pluralsight.com/guides/asp-net-mvc-getting-default-data-binding-right-for-hierarchical-views) - The power of default model binding in ASP.NET MVC extends beyond the flat data model of a simple input form or list of records. Using a few straightforward coding techniques, developers can use ASP.NET to create forms and collect data for hierarchical entity relationships. This guide presents an example of using ASP.NET MVC model binding to present and collect hierarchical form data in a hierarchical structure.
+[ASP.NET MVC - Getting default data binding right for hierarchical views](https://app.pluralsight.com/guides/asp.net-mvc-getting-default-data-binding-right-for-hierarchical-views) - The power of default model binding in ASP.NET MVC extends beyond the flat data model of a simple input form or list of records. Using a few straightforward coding techniques, developers can use ASP.NET to create forms and collect data for hierarchical entity relationships. This guide presents an example of using ASP.NET MVC model binding to present and collect hierarchical form data in a hierarchical structure.
 
 *Notice: PluralSight and the author(s) disclaim any liability for errors or omissions in this code. See the [Disclaimer of Warranties and Limitation of Liability](#disclaimer-of-warranties-and-limitation-of-liability) for complete information.*
 
